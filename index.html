@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Indoor Map</title>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+        <!-- Leaflet CSS -->
+        <link rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+        <style>
+            #map {
+                height: 700px;
+                width: 100%;
+            }
+            #controls {
+                margin: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center my-4">
+                    <h2>Indoor Navigation Map</h2>
+                    <div id="controls" class="mb-3">
+                        <label for="start-point">Select Starting Point:</label>
+                        <select id="start-point" class="custom-select mb-2">
+                            <option value disabled selected>Select
+                                Start</option>
+                            <option value="livingRoom">Living Room</option>
+                            <option value="kitchen">Kitchen</option>
+                            <option value="bedroom">Bedroom</option>
+                            <option value="mainDoor">Main Door</option>
+                        </select>
+
+                        <label for="end-point">Select Destination Point:</label>
+                        <select id="end-point" class="custom-select mb-3">
+                            <option value disabled selected>Select
+                                Destination</option>
+                            <option value="livingRoom">Living Room</option>
+                            <option value="kitchen">Kitchen</option>
+                            <option value="bedroom">Bedroom</option>
+                            <option value="mainDoor">Main Door</option>
+                        </select>
+
+                        <button id="show-route"
+                            class="btn btn-primary btn-block">Show
+                            Route</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="map"></div>
+
+        <!-- Leaflet JS -->
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+        <!-- Bootstrap JS and dependencies -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        <script>
+                // Initialize the map
+                var map = L.map('map', {
+                    minZoom: -5,
+                    maxZoom: 5,
+                    center: [0, 0],
+                    zoom: 0
+                });
+            
+                // Load the house floor plan as an image layer
+                var bounds = [[0, 0], [500, 500]];  // Adjust size based on your image
+                var image = L.imageOverlay('house-plan.jpg', bounds).addTo(map);
+            
+                // Set view to the bounds of the image
+                map.fitBounds(bounds);
+            
+                // Coordinates for the points
+                const points = {
+                    livingRoom: [75, 280],
+                    kitchen: [62, 300],
+                    bedroom: [40, 400],
+                    mainDoor: [30, 230]
+                };
+            
+                // Add markers for the points
+                var livingRoomMarker = L.marker(points.livingRoom).addTo(map).bindPopup('Living Room');
+                var kitchenMarker = L.marker(points.kitchen).addTo(map).bindPopup('Kitchen');
+                var bedroomMarker = L.marker(points.bedroom).addTo(map).bindPopup('Bedroom');
+                var mainDoorMarker = L.marker(points.mainDoor).addTo(map).bindPopup('Main Door');
+            
+                // Custom routes between points (example: from Living Room to Kitchen)
+                const routes = {
+                    livingRoomToKitchen: [
+                        points.livingRoom,
+                        [70, 290],  // Waypoint 1 (hallway)
+                        [65, 295],  // Waypoint 2 (corner)
+                        points.kitchen
+                    ],
+                    bedroomToMainDoor: [
+                        points.bedroom,
+                        [45, 350],  // Waypoint 1 (near hallway)
+                        [35, 270],  // Waypoint 2 (hallway corner)
+                        points.mainDoor
+                    ]
+                    // Add more custom routes as needed
+                };
+            
+                // Event listener for the button click to show the route
+                document.getElementById('show-route').addEventListener('click', function() {
+                    var startPoint = document.getElementById('start-point').value;
+                    var endPoint = document.getElementById('end-point').value;
+            
+                    // Remove any existing route from the map
+                    if (window.routeLine) {
+                        map.removeLayer(window.routeLine);
+                    }
+            
+                    // Check if both start and end points are selected
+                    if (startPoint && endPoint && startPoint !== endPoint) {
+                        var startCoordinates = points[startPoint];
+                        var endCoordinates = points[endPoint];
+            
+                        // Check for custom routes or fallback to straight line
+                        var customRouteKey = startPoint + 'To' + endPoint.charAt(0).toUpperCase() + endPoint.slice(1);
+                        var routeCoordinates = routes[customRouteKey] || [startCoordinates, endCoordinates];
+            
+                        // Draw the polyline (route) with waypoints or a straight line
+                        window.routeLine = L.polyline(routeCoordinates, {
+                            color: 'blue',
+                            weight: 5
+                        }).addTo(map);
+            
+                        // Fit the map bounds to show the entire route
+                        map.fitBounds(window.routeLine.getBounds());
+                    } else {
+                        alert('Please select different starting and destination points.');
+                    }
+                });
+            </script>
+
+    </body>
+</html>
