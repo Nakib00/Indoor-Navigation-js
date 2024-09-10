@@ -205,17 +205,56 @@ document.getElementById('show-route').addEventListener('click', function () {
     if (window.routeLine) {
         map.removeLayer(window.routeLine);
     }
+    if (window.routeDecorator) {
+        map.removeLayer(window.routeDecorator);
+    }
 
     // Check if the end point is selected
     if (endPoint) {
         var customRouteKey = 'yourPositionTo' + endPoint.charAt(0).toUpperCase() + endPoint.slice(1);
         var routeCoordinates = routes[customRouteKey];
 
-        // Draw the polyline (route) with waypoints or a straight line
+        // Draw the polyline (route)
         window.routeLine = L.polyline(routeCoordinates, {
             color: 'blue',
             weight: 5
         }).addTo(map);
+
+        // Create an animated route with arrows
+        window.routeDecorator = L.polylineDecorator(window.routeLine, {
+            patterns: [{
+                offset: '100%',
+                repeat: 0,
+                symbol: L.Symbol.arrowHead({
+                    pixelSize: 15,
+                    polygon: false,
+                    pathOptions: {
+                        stroke: true,
+                        color: 'red',
+                        weight: 2
+                    }
+                })
+            }]
+        }).addTo(map);
+
+        // Animate the arrow moving along the path
+        let offset = 0;
+        setInterval(() => {
+            offset = (offset + 1) % 100;
+            window.routeDecorator.setPatterns([{
+                offset: `${offset}%`,
+                repeat: 0,
+                symbol: L.Symbol.arrowHead({
+                    pixelSize: 15,
+                    polygon: false,
+                    pathOptions: {
+                        stroke: true,
+                        color: 'red',
+                        weight: 2
+                    }
+                })
+            }]);
+        }, 100); // Speed of animation
 
         // Fit the map bounds to show the entire route
         map.fitBounds(window.routeLine.getBounds());
