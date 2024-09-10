@@ -1,0 +1,26 @@
+Algorithm Explanation
+This navigation app uses a simple custom pathfinding algorithm to generate routes between the user's current location and a selected destination.
+
+Steps Involved:
+Map Initialization:
+
+The map is initialized with Leaflet.js, centering on a predefined coordinate system that fits the indoor layout of the IUB building.
+The floor plan image is loaded as an overlay on the map with specified bounds.
+Point Mapping:
+
+Coordinates for each point of interest (POI) are defined as key-value pairs in the points object. Each POI is given an x, y coordinate based on the map layout.
+A marker is added for each POI, allowing users to interact with the map.
+Route Calculation:
+
+For each destination, a predefined route is mapped in the routes object. The route is an array of waypoints starting from the user's current position and ending at the selected destination.
+Upon selecting a destination, the corresponding route is retrieved from the routes object.
+Route Visualization:
+
+The route is drawn on the map using L.polyline(), which displays the path between waypoints.
+An animated arrow is added to the route using L.polylineDecorator(). This arrow moves along the polyline to indicate the direction of travel.
+Dynamic Path Updates:
+
+The pathfinding algorithm dynamically updates the route based on the user's selection. Each time a new destination is chosen, the previous route is cleared, and a new one is drawn on the map.
+Map Adjustments:
+
+The map automatically adjusts its zoom level and bounds to fit the entire route within view using map.fitBounds().
