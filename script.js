@@ -24,7 +24,7 @@ const points = {
     informationDesk: [70, 385],
     lobby: [78, 395],
     admissionOffice: [41, 377],
-    helloCenter: [82, 350],
+    helloCanteen: [82, 350],
     dosaOffice: [79, 260],
     souvenirShop: [79, 245],
     jolilShop: [77, 231],
@@ -57,42 +57,144 @@ Object.keys(points).forEach(function (key) {
 const customRouteauditorium = [
     points.yourPosition,
     [45, 320],
-    [45, 388], 
-    [50, 388], 
-    [70, 388], 
-    [70, 408], 
+    [45, 388],
+    [50, 388],
+    [70, 388],
+    [70, 408],
     points.auditorium // Final destination
 ];
 const customRouteMultipurposeHall = [
     points.yourPosition,
     [45, 320],
-    [45, 388], 
-    [50, 388], 
-    [70, 388], 
-    [70, 408], 
+    [45, 388],
+    [50, 388],
+    [70, 388],
+    [70, 408],
     points.multipurposeHall // Final destination
 ];
-
+const customRouteinformationDesk = [
+    points.yourPosition,
+    [45, 320],
+    [45, 388],
+    [50, 388],
+    [70, 388],
+    points.informationDesk // Final destination
+];
+const customRoutelobby = [
+    points.yourPosition,
+    [45, 320],
+    [45, 388],
+    [50, 388],
+    points.lobby // Final destination
+];
+const customRouteadmissionOffice = [
+    points.yourPosition,
+    [45, 320],
+    [45, 377],
+    points.admissionOffice // Final destination
+];
+const customRoutehelloCanteen = [
+    points.yourPosition,
+    [47, 320],
+    [47, 280],
+    [81, 280],
+    points.helloCanteen // Final destination
+];
+const customRouteHealthCenter = [
+    points.yourPosition,
+    [47, 320],
+    [47, 280],
+    points.HealthCenter // Final destination
+];
+const customRoutedosaOffice = [
+    points.yourPosition,
+    [47, 320],
+    [47, 280],
+    [80, 280],
+    points.dosaOffice // Final destination
+];
+const customRoutesouvenirShop = [
+    points.yourPosition,
+    [47, 320],
+    [47, 280],
+    [81, 280],
+    points.souvenirShop // Final destination
+];
+const customRoutejolilShop = [
+    points.yourPosition,
+    [47, 320],
+    [47, 235],
+    [75, 225],
+    points.jolilShop // Final destination
+];
+const customRouteproctorOffice = [
+    points.yourPosition,
+    [47, 320],
+    [47, 235],
+    points.proctorOffice // Final destination
+];
+const customRoutewashroom = [
+    points.yourPosition,
+    [47, 320],
+    [47, 230],
+    points.washroom // Final destination
+];
+const customRoutefoodCourt = [
+    points.yourPosition,
+    [47, 320],
+    [47, 230],
+    [81, 225],
+    points.foodCourt // Final destination
+];
+const customRouteswimmingPool = [
+    points.yourPosition,
+    [47, 320],
+    [47, 250],
+    [65, 225],
+    [65, 155],
+    points.swimmingPool // Final destination
+];
+const customRoutedmkBuilding = [
+    points.yourPosition,
+    [47, 320],
+    [47, 250],
+    [65, 225],
+    [65, 155],
+    points.dmkBuilding // Final destination
+];
+const customRoutejubileeBuilding = [
+    points.yourPosition,
+    [47, 320],
+    [47, 250],
+    [65, 225],
+    [65, 155],
+    [65, 85],
+    points.jubileeBuilding // Final destination
+];
+const customRoutesecurityBox = [
+    points.yourPosition,
+    [47, 320],
+    points.securityBox // Final destination
+];
 // Routes between points
 const routes = {
     yourPositionToAuditorium: customRouteauditorium,
     yourPositionToMultipurposeHall: customRouteMultipurposeHall,
-    yourPositionToInformationDesk: [points.yourPosition, points.informationDesk],
-    yourPositionToLobby: [points.yourPosition, points.lobby],
-    yourPositionToAdmissionOffice: [points.yourPosition, points.admissionOffice],
-    yourPositionToHelloCenter: [points.yourPosition, points.helloCenter],
-    yourPositionToDosaOffice: [points.yourPosition, points.dosaOffice],
-    yourPositionToSouvenirShop: [points.yourPosition, points.souvenirShop],
-    yourPositionToJolilShop: [points.yourPosition, points.jolilShop],
-    yourPositionToProctorOffice: [points.yourPosition, points.proctorOffice],
-    yourPositionToWashroom: [points.yourPosition, points.washroom],
-    yourPositionToFoodCourt: [points.yourPosition, points.foodCourt],
-    yourPositionToSwimmingPool: [points.yourPosition, points.swimmingPool],
-    yourPositionToDmkBuilding: [points.yourPosition, points.dmkBuilding],
-    yourPositionToJubileeBuilding: [points.yourPosition, points.jubileeBuilding],
-    yourPositionToSecurityBox: [points.yourPosition, points.securityBox],
-    yourPositionToHealthCenter: [points.yourPosition, points.HealthCenter]
-    // Add more routes as needed
+    yourPositionToInformationDesk: customRouteinformationDesk,
+    yourPositionToLobby: customRoutelobby,
+    yourPositionToAdmissionOffice: customRouteadmissionOffice,
+    yourPositionToHelloCenter: customRoutehelloCanteen,
+    yourPositionToDosaOffice: customRoutedosaOffice,
+    yourPositionToSouvenirShop: customRoutesouvenirShop,
+    yourPositionToJolilShop: customRoutejolilShop,
+    yourPositionToProctorOffice: customRouteproctorOffice,
+    yourPositionToWashroom: customRoutewashroom,
+    yourPositionToFoodCourt: customRoutefoodCourt,
+    yourPositionToSwimmingPool: customRouteswimmingPool,
+    yourPositionToDmkBuilding: customRoutedmkBuilding,
+    yourPositionToJubileeBuilding: customRoutejubileeBuilding,
+    yourPositionToSecurityBox: customRoutesecurityBox,
+    yourPositionToHealthCenter: customRouteHealthCenter
 };
 
 // Event listener for the button click to show the route
