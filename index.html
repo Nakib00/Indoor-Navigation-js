@@ -18,19 +18,22 @@
 
         <link rel="stylesheet" href="style.css">
     </head>
-    <body>
+    <body class="bg-light">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-md-6 text-center my-4">
-                    <h2>IUB Indoor Navigation Map</h2>
-                    <div id="controls" class="mb-3">
+                <div class="col-md-6 text-center my-5">
+                    <h2 class="display-4 font-weight-bold text-primary">IUB
+                        Indoor Navigation</h2>
+                    <div id="controls" class="card p-4 shadow-lg">
                         <!-- Fixed Starting Point -->
-                        <label for="start-point">Starting Point:</label>
+                        <label for="start-point"
+                            class="font-weight-bold">Starting Point:</label>
                         <input type="text" id="start-point"
-                            class="form-control mb-2" value="Your Position"
+                            class="form-control mb-3" value="Your Position"
                             disabled>
 
-                        <label for="end-point">Select Destination Point:</label>
+                        <label for="end-point" class="font-weight-bold">Select
+                            Destination Point:</label>
                         <select id="end-point" class="custom-select mb-3">
                             <option value disabled selected>Select
                                 Destination</option>
@@ -59,14 +62,14 @@
                         </select>
 
                         <button id="show-route"
-                            class="btn btn-primary btn-block">Show
+                            class="btn btn-primary btn-block shadow-lg">Show
                             Route</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="map"></div>
+        <div id="map" class="shadow"></div>
 
         <!-- Leaflet JS -->
         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
@@ -78,7 +81,7 @@
         <script
             src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-        <!-- Custom Maping js -->
+        <!-- Custom Mapping JS -->
         <script src="script.js"></script>
 
     </body>
