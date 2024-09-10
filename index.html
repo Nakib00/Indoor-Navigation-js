@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Indoor Map</title>
+        <title>IUB Indoor Map</title>
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet"
@@ -19,26 +19,40 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-6 text-center my-4">
-                    <h2>Indoor Navigation Map</h2>
+                    <h2>IUB Indoor Navigation Map</h2>
                     <div id="controls" class="mb-3">
-                        <label for="start-point">Select Starting Point:</label>
-                        <select id="start-point" class="custom-select mb-2">
-                            <option value disabled selected>Select
-                                Start</option>
-                            <option value="livingRoom">Living Room</option>
-                            <option value="kitchen">Kitchen</option>
-                            <option value="bedroom">Bedroom</option>
-                            <option value="mainDoor">Main Door</option>
-                        </select>
+                        <!-- Fixed Starting Point -->
+                        <label for="start-point">Starting Point:</label>
+                        <input type="text" id="start-point"
+                            class="form-control mb-2" value="Your Position"
+                            disabled>
 
                         <label for="end-point">Select Destination Point:</label>
                         <select id="end-point" class="custom-select mb-3">
                             <option value disabled selected>Select
                                 Destination</option>
-                            <option value="livingRoom">Living Room</option>
-                            <option value="kitchen">Kitchen</option>
-                            <option value="bedroom">Bedroom</option>
-                            <option value="mainDoor">Main Door</option>
+                            <option value="auditorium">Auditorium</option>
+                            <option value="multipurposeHall">Multipurpose
+                                Hall</option>
+                            <option value="informationDesk">Information
+                                Desk</option>
+                            <option value="lobby">Lobby</option>
+                            <option value="admissionOffice">Admission
+                                Office</option>
+                            <option value="helloCenter">Hello Center</option>
+                            <option value="dosaOffice">DOSA Office</option>
+                            <option value="souvenirShop">Souvenir Shop</option>
+                            <option value="jolilShop">Jolil Shop</option>
+                            <option value="proctorOffice">Proctor
+                                Office</option>
+                            <option value="washroom">Washroom</option>
+                            <option value="foodCourt">Food Court</option>
+                            <option value="swimmingPool">Swimming Pool</option>
+                            <option value="dmkBuilding">DMK Building</option>
+                            <option value="jubileeBuilding">Jubilee
+                                Building</option>
+                            <option value="securityBox">Security Box</option>
+                            <option value="HealthCenter">Health Center</option>
                         </select>
 
                         <button id="show-route"

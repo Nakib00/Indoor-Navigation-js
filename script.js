@@ -11,45 +11,92 @@ var bounds = [
     [0, 0],
     [500, 500]
 ]; // Adjust size based on your image
-var image = L.imageOverlay('house-plan.jpg', bounds).addTo(map);
+var image = L.imageOverlay('IUBMap.png', bounds).addTo(map);
 
 // Set view to the bounds of the image
 map.fitBounds(bounds);
 
-// Coordinates for the points
+// Coordinates for points
 const points = {
-    livingRoom: [75, 280],
-    kitchen: [62, 300],
-    bedroom: [40, 400],
-    mainDoor: [30, 230]
+    yourPosition: [40, 320],
+    auditorium: [63, 408],
+    multipurposeHall: [74, 410],
+    informationDesk: [70, 385],
+    lobby: [78, 395],
+    admissionOffice: [41, 377],
+    helloCenter: [82, 350],
+    dosaOffice: [79, 260],
+    souvenirShop: [79, 245],
+    jolilShop: [77, 231],
+    proctorOffice: [74, 231],
+    washroom: [82, 226],
+    foodCourt: [81, 209],
+    swimmingPool: [73, 155],
+    dmkBuilding: [55, 130],
+    jubileeBuilding: [68, 80],
+    securityBox: [42, 298],
+    HealthCenter: [82, 277]
 };
 
-// Add markers for the points
-var livingRoomMarker = L.marker(points.livingRoom).addTo(map).bindPopup('Living Room');
-var kitchenMarker = L.marker(points.kitchen).addTo(map).bindPopup('Kitchen');
-var bedroomMarker = L.marker(points.bedroom).addTo(map).bindPopup('Bedroom');
-var mainDoorMarker = L.marker(points.mainDoor).addTo(map).bindPopup('Main Door');
+// Add marker for "Your Position"
+L.marker(points.yourPosition, {
+        title: 'Your Position'
+    })
+    .addTo(map)
+    .bindPopup('Your Position')
+    .openPopup(); // Automatically open the popup when the map loads
 
-// Custom routes between points (example: from Living Room to Kitchen)
+// Add markers for the other points
+Object.keys(points).forEach(function (key) {
+    if (key !== 'yourPosition') {
+        L.marker(points[key]).addTo(map).bindPopup(key.replace(/([A-Z])/g, ' $1').trim());
+    }
+});
+
+// Custom route example with waypoints
+const customRouteauditorium = [
+    points.yourPosition,
+    [45, 320],
+    [45, 388], 
+    [50, 388], 
+    [70, 388], 
+    [70, 408], 
+    points.auditorium // Final destination
+];
+const customRouteMultipurposeHall = [
+    points.yourPosition,
+    [45, 320],
+    [45, 388], 
+    [50, 388], 
+    [70, 388], 
+    [70, 408], 
+    points.multipurposeHall // Final destination
+];
+
+// Routes between points
 const routes = {
-    livingRoomToKitchen: [
-        points.livingRoom,
-        [70, 290], // Waypoint 1 (hallway)
-        [65, 295], // Waypoint 2 (corner)
-        points.kitchen
-    ],
-    bedroomToMainDoor: [
-        points.bedroom,
-        [45, 350], // Waypoint 1 (near hallway)
-        [35, 270], // Waypoint 2 (hallway corner)
-        points.mainDoor
-    ]
-    // Add more custom routes as needed
+    yourPositionToAuditorium: customRouteauditorium,
+    yourPositionToMultipurposeHall: customRouteMultipurposeHall,
+    yourPositionToInformationDesk: [points.yourPosition, points.informationDesk],
+    yourPositionToLobby: [points.yourPosition, points.lobby],
+    yourPositionToAdmissionOffice: [points.yourPosition, points.admissionOffice],
+    yourPositionToHelloCenter: [points.yourPosition, points.helloCenter],
+    yourPositionToDosaOffice: [points.yourPosition, points.dosaOffice],
+    yourPositionToSouvenirShop: [points.yourPosition, points.souvenirShop],
+    yourPositionToJolilShop: [points.yourPosition, points.jolilShop],
+    yourPositionToProctorOffice: [points.yourPosition, points.proctorOffice],
+    yourPositionToWashroom: [points.yourPosition, points.washroom],
+    yourPositionToFoodCourt: [points.yourPosition, points.foodCourt],
+    yourPositionToSwimmingPool: [points.yourPosition, points.swimmingPool],
+    yourPositionToDmkBuilding: [points.yourPosition, points.dmkBuilding],
+    yourPositionToJubileeBuilding: [points.yourPosition, points.jubileeBuilding],
+    yourPositionToSecurityBox: [points.yourPosition, points.securityBox],
+    yourPositionToHealthCenter: [points.yourPosition, points.HealthCenter]
+    // Add more routes as needed
 };
 
 // Event listener for the button click to show the route
 document.getElementById('show-route').addEventListener('click', function () {
-    var startPoint = document.getElementById('start-point').value;
     var endPoint = document.getElementById('end-point').value;
 
     // Remove any existing route from the map
@@ -57,14 +104,10 @@ document.getElementById('show-route').addEventListener('click', function () {
         map.removeLayer(window.routeLine);
     }
 
-    // Check if both start and end points are selected
-    if (startPoint && endPoint && startPoint !== endPoint) {
-        var startCoordinates = points[startPoint];
-        var endCoordinates = points[endPoint];
-
-        // Check for custom routes or fallback to straight line
-        var customRouteKey = startPoint + 'To' + endPoint.charAt(0).toUpperCase() + endPoint.slice(1);
-        var routeCoordinates = routes[customRouteKey] || [startCoordinates, endCoordinates];
+    // Check if the end point is selected
+    if (endPoint) {
+        var customRouteKey = 'yourPositionTo' + endPoint.charAt(0).toUpperCase() + endPoint.slice(1);
+        var routeCoordinates = routes[customRouteKey];
 
         // Draw the polyline (route) with waypoints or a straight line
         window.routeLine = L.polyline(routeCoordinates, {
@@ -75,6 +118,6 @@ document.getElementById('show-route').addEventListener('click', function () {
         // Fit the map bounds to show the entire route
         map.fitBounds(window.routeLine.getBounds());
     } else {
-        alert('Please select different starting and destination points.');
+        alert('Please select a destination point.');
     }
 });
